@@ -1,12 +1,10 @@
 {
-  
   "editor.fontSize": 16,
   "editor.fontFamily": "Source Code Pro",
   "editor.wordWrap": "on",
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
-  
   "editor.rulers": [
     {
       // For Python
@@ -26,6 +24,5 @@
   ],
   "editor.detectIndentation": true,
   "editor.insertSpaces": false,
-  "terminal.integrated.defaultProfile.linux": "bash",
-  "liveServer.settings.donotShowInfoMsg": true
+  "terminal.integrated.defaultProfile.linux": "bash"
 }
