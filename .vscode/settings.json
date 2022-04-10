@@ -1,0 +1,31 @@
+{
+  
+  "editor.fontSize": 16,
+  "editor.fontFamily": "Source Code Pro",
+  "editor.wordWrap": "on",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  
+  "editor.rulers": [
+    {
+      // For Python
+      "column": 80,
+      "color": "#0078d7"
+    },
+    {
+      // HTML
+      "column": 100,
+      "color": "#59d0e6"
+    },
+    {
+      // Final for any language
+      "column": 120,
+      "color": "#852720"
+    }
+  ],
+  "editor.detectIndentation": true,
+  "editor.insertSpaces": false,
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "liveServer.settings.donotShowInfoMsg": true
+}
