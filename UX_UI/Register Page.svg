@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="1094" viewBox="0 0 1280 1094">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Register_Page);
+      }
+
+      .cls-2 {
+        fill: rgba(0,0,0,0.74);
+        stroke: #707070;
+        opacity: 0.8;
+      }
+
+      .cls-12, .cls-16, .cls-3, .cls-4, .cls-6, .cls-7 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        font-size: 31px;
+      }
+
+      .cls-10, .cls-12, .cls-13, .cls-3, .cls-4, .cls-5, .cls-8, .cls-9 {
+        font-family: SegoeUI, Segoe UI;
+      }
+
+      .cls-13, .cls-4, .cls-9 {
+        font-size: 16px;
+      }
+
+      .cls-5 {
+        fill: rgba(0,0,0,0.59);
+        font-size: 24px;
+      }
+
+      .cls-6 {
+        stroke: rgba(112,112,112,0.32);
+      }
+
+      .cls-11, .cls-7 {
+        stroke: rgba(112,112,112,0.22);
+      }
+
+      .cls-8 {
+        fill: rgba(0,0,0,0.69);
+      }
+
+      .cls-12, .cls-8 {
+        font-size: 20px;
+      }
+
+      .cls-9 {
+        fill: rgba(0,0,0,0.33);
+      }
+
+      .cls-10 {
+        fill: rgba(229,16,16,0.93);
+        font-size: 12px;
+      }
+
+      .cls-11 {
+        fill: #63ce71;
+      }
+
+      .cls-13 {
+        fill: rgba(84,195,207,0.77);
+        text-decoration: underline;
+      }
+
+      .cls-14 {
+        stroke: none;
+      }
+
+      .cls-15 {
+        fill: none;
+      }
+    </style>
+    <clipPath id="clip-Register_Page">
+      <rect width="1280" height="1094"/>
+    </clipPath>
+  </defs>
+  <g id="Register_Page" data-name="Register Page" class="cls-1">
+    <rect class="cls-16" width="1280" height="1094"/>
+    <g id="Group_4" data-name="Group 4" transform="translate(-346 313)">
+      <g id="Rectangle_2" data-name="Rectangle 2" class="cls-2" transform="translate(346 -313)">
+        <rect class="cls-14" width="1280" height="60"/>
+        <rect class="cls-15" x="0.5" y="0.5" width="1279" height="59"/>
+      </g>
+      <text id="Track_My_Work" data-name="Track My Work" class="cls-3" transform="translate(484 -271)"><tspan x="0" y="0">Track My Work</tspan></text>
+      <text id="Login" class="cls-4" transform="translate(1342 -277)"><tspan x="0" y="0">Login</tspan></text>
+      <text id="Register" class="cls-4" transform="translate(1431 -277)"><tspan x="0" y="0">Register</tspan></text>
+      <text id="About" class="cls-4" transform="translate(1143 -277)"><tspan x="0" y="0">About</tspan></text>
+      <text id="Contact" class="cls-4" transform="translate(1237 -277)"><tspan x="0" y="0">Contact</tspan></text>
+    </g>
+    <text id="Create_A_Free_Account" data-name="Create A Free Account" class="cls-5" transform="translate(522 156)"><tspan x="0" y="0">Create A Free Account</tspan></text>
+    <g id="Rectangle_8" data-name="Rectangle 8" class="cls-6" transform="translate(393 213)">
+      <rect class="cls-14" width="494" height="712"/>
+      <rect class="cls-15" x="0.5" y="0.5" width="493" height="711"/>
+    </g>
+    <g id="Rectangle_9" data-name="Rectangle 9" class="cls-7" transform="translate(431 289)">
+      <rect class="cls-14" width="414" height="44" rx="10"/>
+      <rect class="cls-15" x="0.5" y="0.5" width="413" height="43" rx="9.5"/>
+    </g>
+    <g id="Rectangle_10" data-name="Rectangle 10" class="cls-7" transform="translate(431 454)">
+      <rect class="cls-14" width="414" height="44" rx="10"/>
+      <rect class="cls-15" x="0.5" y="0.5" width="413" height="43" rx="9.5"/>
+    </g>
+    <g id="Rectangle_11" data-name="Rectangle 11" class="cls-7" transform="translate(431 610)">
+      <rect class="cls-14" width="414" height="44" rx="10"/>
+      <rect class="cls-15" x="0.5" y="0.5" width="413" height="43" rx="9.5"/>
+    </g>
+    <g id="Rectangle_12" data-name="Rectangle 12" class="cls-7" transform="translate(431 710)">
+      <rect class="cls-14" width="414" height="44" rx="10"/>
+      <rect class="cls-15" x="0.5" y="0.5" width="413" height="43" rx="9.5"/>
+    </g>
+    <text id="UserName" class="cls-8" transform="translate(431 274)"><tspan x="0" y="0">UserName</tspan></text>
+    <text id="Email" class="cls-8" transform="translate(431 413)"><tspan x="0" y="0">Email</tspan></text>
+    <text id="Password" class="cls-8" transform="translate(431 595)"><tspan x="0" y="0">Password</tspan></text>
+    <text id="Re-Enter_Password" data-name="Re-Enter Password" class="cls-8" transform="translate(431 695)"><tspan x="0" y="0">Re-Enter Password</tspan></text>
+    <text id="username_allows_only_lowercase_letters_numbers_and__" data-name="username allows only lowercase letters, numbers and _" class="cls-9" transform="translate(431 355)"><tspan x="0" y="0">username allows only lowercase letters, numbers and _</tspan></text>
+    <text id="Enter_valid_email_address" data-name="Enter valid email address" class="cls-10" transform="translate(431 441)"><tspan x="0" y="0">Enter valid email address</tspan></text>
+    <g id="Group_5" data-name="Group 5" transform="translate(0 11)">
+      <g id="Rectangle_13" data-name="Rectangle 13" class="cls-11" transform="translate(431 768)">
+        <rect class="cls-14" width="414" height="44" rx="10"/>
+        <rect class="cls-15" x="0.5" y="0.5" width="413" height="43" rx="9.5"/>
+      </g>
+      <text id="Create" class="cls-12" transform="translate(610 799)"><tspan x="0" y="0">Create</tspan></text>
+    </g>
+    <text id="Enter_currently_active_email_address_confirmation_otp_will_send_to_your_email" data-name="Enter currently active email address, confirmation otp will send to your email" class="cls-9" transform="translate(431 503)"><tspan x="0" y="17">Enter currently active email address, confirmation otp will </tspan><tspan x="0" y="38">send to your email</tspan></text>
+    <text id="Already_have_an_account" data-name="Already have an account" class="cls-13" transform="translate(431 870)"><tspan x="0" y="0">Already have an account</tspan></text>
+  </g>
+</svg>

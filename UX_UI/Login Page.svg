@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="800" viewBox="0 0 1280 800">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Login_Page);
+      }
+
+      .cls-2 {
+        fill: rgba(0,0,0,0.74);
+        stroke: #707070;
+        opacity: 0.8;
+      }
+
+      .cls-10, .cls-19, .cls-3, .cls-4, .cls-5, .cls-7 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        font-size: 31px;
+      }
+
+      .cls-10, .cls-11, .cls-12, .cls-13, .cls-16, .cls-3, .cls-4, .cls-6, .cls-8 {
+        font-family: SegoeUI, Segoe UI;
+      }
+
+      .cls-11, .cls-12, .cls-13, .cls-4 {
+        font-size: 16px;
+      }
+
+      .cls-5 {
+        stroke: rgba(112,112,112,0.25);
+      }
+
+      .cls-6 {
+        fill: rgba(0,0,0,0.59);
+        font-size: 24px;
+      }
+
+      .cls-7 {
+        stroke: rgba(112,112,112,0.22);
+      }
+
+      .cls-8 {
+        fill: rgba(0,0,0,0.64);
+      }
+
+      .cls-10, .cls-8 {
+        font-size: 20px;
+      }
+
+      .cls-9 {
+        fill: #63cace;
+      }
+
+      .cls-11 {
+        fill: #5e92ec;
+      }
+
+      .cls-11, .cls-15 {
+        text-decoration: underline;
+      }
+
+      .cls-12, .cls-14, .cls-16 {
+        fill: #f24227;
+      }
+
+      .cls-13 {
+        fill: rgba(0,0,0,0.6);
+      }
+
+      .cls-15 {
+        fill: #52b6f2;
+      }
+
+      .cls-16 {
+        font-size: 12px;
+      }
+
+      .cls-17 {
+        stroke: none;
+      }
+
+      .cls-18 {
+        fill: none;
+      }
+    </style>
+    <clipPath id="clip-Login_Page">
+      <rect width="1280" height="800"/>
+    </clipPath>
+  </defs>
+  <g id="Login_Page" data-name="Login Page" class="cls-1">
+    <rect class="cls-19" width="1280" height="800"/>
+    <g id="Rectangle_1" data-name="Rectangle 1" class="cls-2" transform="translate(0 1)">
+      <rect class="cls-17" width="1280" height="60"/>
+      <rect class="cls-18" x="0.5" y="0.5" width="1279" height="59"/>
+    </g>
+    <text id="Track_My_Work" data-name="Track My Work" class="cls-3" transform="translate(138 43)"><tspan x="0" y="0">Track My Work</tspan></text>
+    <text id="Login" class="cls-4" transform="translate(996 37)"><tspan x="0" y="0">Login</tspan></text>
+    <text id="Register" class="cls-4" transform="translate(1085 37)"><tspan x="0" y="0">Register</tspan></text>
+    <text id="About" class="cls-4" transform="translate(797 37)"><tspan x="0" y="0">About</tspan></text>
+    <text id="Contact" class="cls-4" transform="translate(891 37)"><tspan x="0" y="0">Contact</tspan></text>
+    <g id="Rectangle_3" data-name="Rectangle 3" class="cls-5" transform="translate(393 206)">
+      <rect class="cls-17" width="494" height="498"/>
+      <rect class="cls-18" x="0.5" y="0.5" width="493" height="497"/>
+    </g>
+    <text id="Get_Logged_In" data-name="Get Logged In" class="cls-6" transform="translate(565 170)"><tspan x="0" y="0">Get Logged In</tspan></text>
+    <g id="Rectangle_5" data-name="Rectangle 5" class="cls-7" transform="translate(435 469)">
+      <rect class="cls-17" width="414" height="44" rx="10"/>
+      <rect class="cls-18" x="0.5" y="0.5" width="413" height="43" rx="9.5"/>
+    </g>
+    <g id="Rectangle_6" data-name="Rectangle 6" class="cls-7" transform="translate(435 337)">
+      <rect class="cls-17" width="414" height="44" rx="10"/>
+      <rect class="cls-18" x="0.5" y="0.5" width="413" height="43" rx="9.5"/>
+    </g>
+    <text id="Username_or_Email" data-name="Username or Email" class="cls-8" transform="translate(435 296)"><tspan x="0" y="0">Username or Email</tspan></text>
+    <text id="Password" class="cls-8" transform="translate(435 428)"><tspan x="0" y="0">Password</tspan></text>
+    <g id="Group_1" data-name="Group 1" transform="translate(17 57)">
+      <g id="Group_2" data-name="Group 2" transform="translate(418 481)">
+        <rect id="Rectangle_7" data-name="Rectangle 7" class="cls-9" width="414" height="44" rx="9"/>
+        <text id="Login-2" data-name="Login" class="cls-10" transform="translate(183 31.917)"><tspan x="0" y="0">Login</tspan></text>
+      </g>
+    </g>
+    <text id="Forgot_password_" data-name="Forgot password ?" class="cls-11" transform="translate(435 624)"><tspan x="0" y="0">Forgot password ?</tspan></text>
+    <text id="Your_account_has_been_suspended" data-name="Your account has been suspended" class="cls-12" transform="translate(435 245)"><tspan x="0" y="0">Your account has been suspended</tspan></text>
+    <text id="Don_t_have_an_account_Create_New_Account" data-name="Don&apos;t have an account ? Create New Account" class="cls-13" transform="translate(435 670)"><tspan x="0" y="0">Don&apos;t have an account ?</tspan><tspan class="cls-14" y="0"> </tspan><tspan class="cls-15" y="0">Create New Account</tspan></text>
+    <text id="Password_is_incorrect" data-name="Password is incorrect" class="cls-16" transform="translate(435 456)"><tspan x="0" y="0">Password is incorrect</tspan></text>
+    <text id="Username_or_Email_does_not_exist" data-name="Username or Email does not exist" class="cls-16" transform="translate(435 324)"><tspan x="0" y="0">Username or Email does not exist</tspan></text>
+  </g>
+</svg>

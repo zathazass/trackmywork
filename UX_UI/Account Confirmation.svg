@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="800" viewBox="0 0 1280 800">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Account_Confirmation);
+      }
+
+      .cls-2 {
+        fill: rgba(0,0,0,0.74);
+        stroke: #707070;
+        opacity: 0.8;
+      }
+
+      .cls-20, .cls-3, .cls-4, .cls-6, .cls-7 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        font-size: 31px;
+      }
+
+      .cls-10, .cls-11, .cls-13, .cls-15, .cls-17, .cls-3, .cls-4, .cls-5, .cls-9 {
+        font-family: SegoeUI, Segoe UI;
+      }
+
+      .cls-11, .cls-13, .cls-15, .cls-17, .cls-4 {
+        font-size: 16px;
+      }
+
+      .cls-5, .cls-9 {
+        fill: rgba(0,0,0,0.77);
+      }
+
+      .cls-5 {
+        font-size: 24px;
+      }
+
+      .cls-6 {
+        stroke: rgba(112,112,112,0.28);
+      }
+
+      .cls-7 {
+        stroke: rgba(112,112,112,0.27);
+      }
+
+      .cls-8 {
+        fill: #63ce71;
+      }
+
+      .cls-10, .cls-9 {
+        font-size: 20px;
+      }
+
+      .cls-10 {
+        fill: rgba(255,255,255,0.99);
+      }
+
+      .cls-11 {
+        fill: rgba(0,0,0,0.44);
+      }
+
+      .cls-12 {
+        fill: rgba(45,175,190,0.99);
+        text-decoration: underline;
+      }
+
+      .cls-13 {
+        fill: rgba(0,0,0,0.32);
+      }
+
+      .cls-14 {
+        fill: rgba(0,0,0,0.64);
+      }
+
+      .cls-15 {
+        fill: rgba(0,0,0,0.43);
+      }
+
+      .cls-16 {
+        fill: #d4ffd1;
+      }
+
+      .cls-17 {
+        fill: rgba(59,122,44,0.82);
+      }
+
+      .cls-18 {
+        stroke: none;
+      }
+
+      .cls-19 {
+        fill: none;
+      }
+    </style>
+    <clipPath id="clip-Account_Confirmation">
+      <rect width="1280" height="800"/>
+    </clipPath>
+  </defs>
+  <g id="Account_Confirmation" data-name="Account Confirmation" class="cls-1">
+    <rect class="cls-20" width="1280" height="800"/>
+    <g id="Group_6" data-name="Group 6" transform="translate(-346 313)">
+      <g id="Rectangle_2" data-name="Rectangle 2" class="cls-2" transform="translate(346 -313)">
+        <rect class="cls-18" width="1280" height="60"/>
+        <rect class="cls-19" x="0.5" y="0.5" width="1279" height="59"/>
+      </g>
+      <text id="Track_My_Work" data-name="Track My Work" class="cls-3" transform="translate(484 -271)"><tspan x="0" y="0">Track My Work</tspan></text>
+      <text id="Login" class="cls-4" transform="translate(1342 -277)"><tspan x="0" y="0">Login</tspan></text>
+      <text id="Register" class="cls-4" transform="translate(1431 -277)"><tspan x="0" y="0">Register</tspan></text>
+      <text id="About" class="cls-4" transform="translate(1143 -277)"><tspan x="0" y="0">About</tspan></text>
+      <text id="Contact" class="cls-4" transform="translate(1237 -277)"><tspan x="0" y="0">Contact</tspan></text>
+    </g>
+    <text id="Confirm_Your_Account" data-name="Confirm Your Account" class="cls-5" transform="translate(524 168)"><tspan x="0" y="0">Confirm Your Account</tspan></text>
+    <g id="Rectangle_14" data-name="Rectangle 14" class="cls-6" transform="translate(393 203)">
+      <rect class="cls-18" width="494" height="450"/>
+      <rect class="cls-19" x="0.5" y="0.5" width="493" height="449"/>
+    </g>
+    <g id="Rectangle_15" data-name="Rectangle 15" class="cls-7" transform="translate(417 457)">
+      <rect class="cls-18" width="447" height="56" rx="11"/>
+      <rect class="cls-19" x="0.5" y="0.5" width="446" height="55" rx="10.5"/>
+    </g>
+    <path id="Path_1" data-name="Path 1" class="cls-8" d="M11,0H436a11,11,0,0,1,11,11V45a11,11,0,0,1-11,11H11A11,11,0,0,1,0,45V11A11,11,0,0,1,11,0Z" transform="translate(417 529)"/>
+    <text id="Enter_OTP" data-name="Enter OTP" class="cls-9" transform="translate(418 436)"><tspan x="0" y="0">Enter OTP</tspan></text>
+    <text id="Confirm" class="cls-10" transform="translate(605 566)"><tspan x="0" y="0">Confirm</tspan></text>
+    <text id="I_haven_t_received_OTP_Resend_OTP" data-name="I haven&apos;t received OTP ? Resend OTP" class="cls-11" transform="translate(418 615)"><tspan x="0" y="0">I haven&apos;t received OTP ?</tspan><tspan class="cls-12" y="0" xml:space="preserve"> Resend OTP</tspan></text>
+    <text id="Account_Confirmation_OTP_sent_to_your_email_address_which_is_sat_15_gmail.com" data-name="Account Confirmation OTP sent to your email address which is
+sat*********15@gmail.com" class="cls-13" transform="translate(418 323)"><tspan x="0" y="0">Account Confirmation OTP sent to your email address which is</tspan><tspan class="cls-14"><tspan x="0" y="21">sat*********15@gmail.com</tspan></tspan></text>
+    <text id="OTP_will_automatically_expire_after_30_minutes" data-name="OTP will automatically expire after 30 minutes" class="cls-15" transform="translate(418 385)"><tspan x="0" y="0">OTP will automatically expire after 30 minutes</tspan></text>
+    <g id="Group_10" data-name="Group 10">
+      <rect id="Rectangle_17" data-name="Rectangle 17" class="cls-16" width="447" height="49" transform="translate(410 232)"/>
+      <text id="OTP_Resent_to_your_email_address_successfully" data-name="OTP Resent to your email address successfully" class="cls-17" transform="translate(433 263)"><tspan x="0" y="0">OTP Resent to your email address successfully</tspan></text>
+    </g>
+  </g>
+</svg>
