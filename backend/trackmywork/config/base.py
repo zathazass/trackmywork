@@ -24,7 +24,9 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-
+    'psycopg2',
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 LOCAL_APPS = [
