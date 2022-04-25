@@ -1,8 +1,7 @@
-import random
-
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.conf import settings
+from trackmywork.utilities.model_fields import ConfidentialField
 
 
 class UserManager(BaseUserManager):
@@ -81,7 +80,8 @@ class User(AbstractBaseUser):
 
 
 class AccountConfirmation(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     otp = models.CharField(max_length=6)
     confirmation_status = models.BooleanField(default=False)
 
@@ -90,5 +90,11 @@ class AccountConfirmation(models.Model):
             return f'{self.user.email} - Account Confirmed'
         return f'{self.user.email} - Account not Confirmed'
 
-    def generate_otp(self):
-        return random.randrange(100000, 1000000)
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=64)
+    mobile = ConfidentialField()
+
+    def __str__(self):
+        return f'{self.user.username} - {self.user.email}'
