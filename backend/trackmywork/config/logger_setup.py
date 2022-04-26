@@ -36,6 +36,12 @@ LOCAL_LOGGING = {
             'class': 'logging.FileHandler',
             'filename': 'logs/template.log',
         },
+        'common_file': {
+            'level': 'WARNING',
+            'formatter': 'advanced',
+            'class': 'logging.FileHandler',
+            'filename': 'prod_logs/common.log',
+        },
     },
     'loggers': {
         'django.request': {
@@ -57,6 +63,11 @@ LOCAL_LOGGING = {
             'handlers': ['template_file'],
             'level': 'ERROR',
             'propagate': False,
+        },
+        'common': {
+            'handlers': ['common_file'],
+            'level': 'WARNING',
+            'propagate': False
         }
     }
 }
@@ -99,6 +110,12 @@ PRODUCTION_LOGGING = {
             'class': 'logging.FileHandler',
             'filename': 'prod_logs/template.log',
         },
+        'common_file': {
+            'level': 'WARNING',
+            'formatter': 'advanced',
+            'class': 'logging.FileHandler',
+            'filename': 'prod_logs/common.log',
+        },
     },
     'loggers': {
         'django.request': {
@@ -120,6 +137,11 @@ PRODUCTION_LOGGING = {
             'handlers': ['template_file'],
             'level': 'ERROR',
             'propagate': False,
+        },
+        'common': {
+            'handlers': ['common_file'],
+            'level': 'WARNING',
+            'propagate': False
         }
     }
 }
