@@ -111,3 +111,18 @@ class Settings(models.Model):
 
     def __str__(self):
         return f'{self.user.username}'
+
+
+class AccountStatus(models.Model):
+
+    class InactiveReason(models.TextChoices):
+        confirm = 'confirm', 'Account confirmation'
+        purchase = 'purchase', 'Trial version expired'
+        suspend = 'suspend', 'Account suspended by User'  
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    inactive_reason = models.CharField(max_length=255, choices=InactiveReason.choices)
+    description = models.TextField()
+
+    def __str__(self):
+        return f'{self.user.username} - {self.inactive_reason}'
