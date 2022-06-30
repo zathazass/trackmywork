@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.conf import settings
+from django.utils import timezone
+
 from trackmywork.utilities.model_fields import ConfidentialField
 
 
@@ -84,12 +86,16 @@ class AccountConfirmation(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     otp = models.CharField(max_length=6)
     confirmation_status = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         if self.confirmation_status:
             return f'{self.user.email} - Account Confirmed'
         return f'{self.user.email} - Account not Confirmed'
 
+    def is_expired(self, hours=1):
+        duration = timezone.now() - self.created_at
+        return duration.seconds > hours*3600
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

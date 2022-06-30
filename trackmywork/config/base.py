@@ -29,6 +29,7 @@ THIRD_PARTY_APPS = [
     'psycopg2',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 LOCAL_APPS = [
@@ -164,7 +165,9 @@ SIMPLE_JWT = {
 
 
 REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'trackmywork.utilities.exceptions.custom_exception_handler',
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
 }
