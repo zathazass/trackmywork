@@ -2,9 +2,9 @@ import logging
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate, logout
+from django.contrib.auth import authenticate, logout, login as django_login
 
-from rest_framework.views import APIView
+from rest_framework.views import APIView, View
 from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -55,6 +55,12 @@ class LoginAPI(APIView):
             )
             if not is_valid_user:
                 return Response({'message': 'Password is incorrect'}, status=400)
+
+            if request.data.get('csrfmiddlewaretoken'):
+                print(request.data['csrfmiddlewaretoken'])
+                django_login(request, user)
+            else:
+                print('NO token found')
 
             tokens = get_tokens_for_user(user)
             return Response({'message': 'success', 'extra':{'data':tokens}}, status=200)

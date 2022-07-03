@@ -1,4 +1,3 @@
-from backend.trackmywork.config.local import LOGGING
 from .base import *
 from .logger_setup import PRODUCTION_LOGGING
 

@@ -2,6 +2,77 @@
 {% load static %}
 {% block body %}
 
+<main class="mx-3 sm:max-w-7xl sm:mx-auto">
+	<section>
+		<div class="container my-6">
+			<div class="border border-gray-100 p-8 my-12 max-w-2xl mx-auto">
+				<form method="post" class="flex flex-col space-y-5" id="login-form">
+					{% csrf_token %}
+					<h3 class="text-sky-700 text-center text-2xl pb-8">Welcome back !</h3>
+					<div class="flex flex-col space-y-3 w-full">
+						<label for="id_username" class="text-slate-700">Enter Your Username</label>
+						<input type="text" name="username" id="id_username" placeholder="Username or Email"
+							class="border-slate-300 focus:border-sky-700">
+					</div>
+					<div class="flex flex-col space-y-3 w-full">
+						<label for="id_password" class="text-slate-700">Enter Your Password</label>
+						<input type="password" name="password" id="id_password" placeholder="Password"
+							class="border-slate-300 focus:border-sky-700">
+					</div>
+					<div class="flex items-center">
+						<div class="flex-1 flex items-center space-x-4">
+							<input type="checkbox" class="outline-none" id="id_keep_me" name="keep_me">
+							<label for="id_keep_me">Keep me signed in</label>
+						</div>
+						<div class="flex-1 text-right">
+							<a href="#" class="text-sky-700 hover:text-sky-400 underline">Forgot password
+								?</a>
+						</div>
+					</div>
+					<input type="submit" value="Sign In" class="p-3 bg-sky-700 hover:bg-sky-800 text-white text-lg">
+					<p class="text-slate-700">Already have an account ? <a href="#"
+							class="text-sky-700 hover:text-sky-400 underline"> Sign Up</a></p>
+				</form>
+			</div>
+		</div>
+	</section>
+</main>
+
+{% endblock %}
+
+{% block script %}
+<script>
+	function toggleMenu() {
+		$('#mobile-menu').toggleClass('hidden')
+	}
+
+	$(document).ready(
+		$('#login-form').submit(function (e) {
+			e.preventDefault();
+			const formData = new FormData(e.target);
+			let jsonData = {};
+			formData.forEach((value, key) => jsonData[key] = value);
+			console.log(jsonData)
+			$.ajax({
+				url: "{% url 'accounts:login' %}",
+				type: 'post',
+				data: JSON.stringify(jsonData),
+				processData: false,
+				contentType: 'application/json',
+				success: handleSuccessData,
+				error: handleErrorData
+			})
+			function handleSuccessData(res) {
+				console.log(res);
+				window.location.replace("{% url 'accounts:home_page' %}")
+			}
+
+			function handleErrorData(err) {
+				console.log(err)
+			}
+		})
 
 
+	);
+</script>
 {% endblock %}
