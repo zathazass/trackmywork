@@ -14,6 +14,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# For tailwind config
+INTERNAL_IPS = ['127.0.0.1']
 
 # Application definition
 DJANGO_APPS = [
@@ -30,6 +32,9 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'tailwind',
+    'theme',
+    'django_browser_reload'
 ]
 
 LOCAL_APPS = [
@@ -47,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware'
 ]
 
 ROOT_URLCONF = 'trackmywork.urls'
@@ -54,7 +60,7 @@ ROOT_URLCONF = 'trackmywork.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,6 +124,12 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+STATIC_ROOT = BASE_DIR / 'static' / 'production'
+
+TAILWIND_APP_NAME = 'theme'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

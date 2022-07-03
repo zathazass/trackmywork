@@ -1,14 +1,18 @@
 from django.urls import path
-from .views import LoginAPI, LogoutAPI
+from . import views
+from . import apis
 
 from rest_framework_simplejwt.views import (
     TokenRefreshView, TokenVerifyView
 )
 
+app_name = 'accounts'
 
 urlpatterns = [
-    path('login/', LoginAPI.as_view(), name='login'),
-    path('logout/', LogoutAPI.as_view(), name='logout'),
-    path('refresh-token/', TokenRefreshView.as_view(), name='refresh_token'),
-    path('verify-token/', TokenVerifyView.as_view(), name='verify_token'),
+    path('api/login/', apis.LoginAPI.as_view(), name='login'),
+    path('api/logout/', apis.LogoutAPI.as_view(), name='logout'),
+    path('api/refresh-token/', TokenRefreshView.as_view(), name='refresh_token'),
+    path('api/verify-token/', TokenVerifyView.as_view(), name='verify_token'),
+
+    path('login/', views.login_page, name='login_page'),
 ]
