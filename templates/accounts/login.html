@@ -9,15 +9,30 @@
 				<form method="post" class="flex flex-col space-y-5" id="login-form">
 					{% csrf_token %}
 					<h3 class="text-sky-700 text-center text-2xl pb-8">Welcome back !</h3>
+					{% if form.non_field_errors %}
+					{% for error in form.non_field_errors %}
+					<p class="text-red-600 text-sm">{{ error|escape }}</p>
+					{% endfor %}
+					{% endif %}
 					<div class="flex flex-col space-y-3 w-full">
 						<label for="id_username" class="text-slate-700">Enter Your Username</label>
 						<input type="text" name="username" id="id_username" placeholder="Username or Email"
 							class="border-slate-300 focus:border-sky-700">
+						{% if form.username.errors %}
+						{% for error in form.username.errors %}
+						<p class="text-red-600 text-sm">{{ error|escape }}</p>
+						{% endfor %}
+						{% endif %}
 					</div>
 					<div class="flex flex-col space-y-3 w-full">
 						<label for="id_password" class="text-slate-700">Enter Your Password</label>
 						<input type="password" name="password" id="id_password" placeholder="Password"
 							class="border-slate-300 focus:border-sky-700">
+						{% if form.password.errors %}
+						{% for error in form.password.errors %}
+						<p class="text-red-600 text-sm">{{ error|escape }}</p>
+						{% endfor %}
+						{% endif %}
 					</div>
 					<div class="flex items-center">
 						<div class="flex-1 flex items-center space-x-4">
@@ -41,11 +56,7 @@
 {% endblock %}
 
 {% block script %}
-<script>
-	function toggleMenu() {
-		$('#mobile-menu').toggleClass('hidden')
-	}
-
+<!-- <script>
 	$(document).ready(
 		$('#login-form').submit(function (e) {
 			e.preventDefault();
@@ -74,5 +85,5 @@
 
 
 	);
-</script>
+</script> -->
 {% endblock %}
