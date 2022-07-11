@@ -49,6 +49,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    accept_terms_and_conditions = models.BooleanField(default=False)
     # password & last_login fields auto-injected by django BaseUser model
 
     class Meta:
@@ -80,6 +81,11 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+    @property
+    def status(self):
+        is_ok = getattr(self, 'accountstatus', True)
+        if is_ok == True: return True
+        else: return False
 
 class AccountConfirmation(models.Model):
     user = models.OneToOneField(

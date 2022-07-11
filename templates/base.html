@@ -14,7 +14,9 @@
 
 <body>
 	{% include 'header.html' %}
-	{% block body %} {% endblock %}
+	<main class="mx-[5%] sm:max-w-7xl sm:mx-auto">
+		{% block body %} {% endblock %}
+	</main>
 
 	<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 

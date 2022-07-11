@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Register | TMW</title>
+{% endblock %}
+
+{% block body %}
+<section>
+	<div class="container my-6">
+		<div class="flex flex-col space-y-2 mx-auto">
+			{% if messages %}
+			{% for message in messages %}
+			<p class="bg-sky-100 p-3 error">{{ message }}</p>
+			{% endfor %}
+			{% endif %}
+		</div>
+		<div class="border border-gray-100 p-8 my-12 max-w-2xl mx-auto">
+			<form method="post" class="flex flex-col space-y-5" id="register-form">
+				{% csrf_token %}
+				<h3 class="text-sky-700 text-center text-2xl pb-8">Create A Free Account</h3>
+				{% if form.non_field_errors %}
+				{% for error in form.non_field_errors %}
+				<p class="text-red-600 text-sm error">{{ error|escape }}</p>
+				{% endfor %}
+				{% endif %}
+				<div class="flex flex-col space-y-3 w-full">
+					<label for="id_username" class="text-slate-700">Username</label>
+					<p class="text-slate-500 text-xs">only allows _ as special character and lower case letters, does
+						not allow leading numbers</p>
+					<input type="text" name="username" id="id_username" placeholder="Username" required
+						class="border-slate-300 focus:border-sky-700" {% if form.username.value %}
+						value="{{form.username.value}}" {% endif %} pattern="[a-z_]+[a-z0-9_]*" />
+					<p class="text-red-600 text-sm hidden u_error" id="username-error"></p>
+					{% if form.username.errors %}
+					{% for error in form.username.errors %}
+					<p class="text-red-600 text-sm u_error">{{ error|escape }}</p>
+					{% endfor %}
+					{% endif %}
+				</div>
+				<div class="flex flex-col space-y-3 w-full">
+					<label for="id_email" class="text-slate-700">Email</label>
+					<p class="text-slate-500 text-xs">please provide currently active mail address, confirmation link
+						will be sent to that account</p>
+					<input type="email" name="email" id="id_email" placeholder="Email Address" required
+						class="border-slate-300 focus:border-sky-700" {% if form.email.value %}
+						value="{{form.email.value}}" {% endif %} />
+					<p class="text-red-600 text-sm hidden e_error" id="email-error"></p>
+					{% if form.email.errors %}
+					{% for error in form.email.errors %}
+					<p class="text-red-600 text-sm e_error">{{ error|escape }}</p>
+					{% endfor %}
+					{% endif %}
+				</div>
+				<div class="flex flex-col space-y-3 w-full">
+					<label for="id_password" class="text-slate-700">Password</label>
+					<p class="text-slate-500 text-xs">to choose strong password</p>
+					<ul class="text-slate-500 text-xs list-disc pl-4">
+						<li id="p_1">Atleast one uppercase letter</li>
+						<li id="p_2">Atleast one number</li>
+						<li id="p_3">Atleast one special character</li>
+						<li id="p_4">Minimum 6 characters long</li>
+					</ul>
+					<div id="password-strength-meter">
+						<span class="status-bar border block p-1 relative">
+							<i id="bar-percent" class="block h-full absolute left-0 top-0"></i>
+						</span>
+						<span class="block text-center text-xs text-slate-400" id="bar-text"></span>
+					</div>
+					<div class="flex">
+						<input type="password" name="password" id="id_password" placeholder="Password" required
+							class="border-slate-300 focus:border-sky-700 flex-1" {% if form.password.value %}
+							value="{{form.password.value}}" {% endif %} />
+						<span
+							class="border py-2 px-3 flex bg-slate-100 justify-center items-center hover:cursor-pointer"
+							id="password-visible-toggle">
+							<img src="{% static 'images/visibility-hide.png' %}" width="20" height="15" class="hidden"
+								id="visibility-hide">
+							<img src="{% static 'images/visibility-show.png' %}" id="visibility-show" width="20"
+								height="15">
+						</span>
+					</div>
+					{% if form.password.errors %}
+					{% for error in form.password.errors %}
+					<p class="text-red-600 text-sm p_error">{{ error|escape }}</p>
+					{% endfor %}
+					{% endif %}
+				</div>
+				<div class="flex flex-col space-y-3 w-full">
+					<label for="id_confirm_password" class="text-slate-700">Confirm Password</label>
+					<p class="text-slate-500 text-xs">re enter same password for confirm once again with awareness</p>
+					<div class="flex">
+						<input {% if form.confirm_password.value %} value="{{form.confirm_password.value}}" {% endif %}
+							required type="password" name="confirm_password" id="id_confirm_password"
+							placeholder="Re-Password" class="border-slate-300 focus:border-sky-700 flex-1" />
+						<span
+							class="border py-2 px-3 flex bg-slate-100 items-center justify-center hover:cursor-pointer"
+							id="confirm-password-visible-toggle">
+							<img src="{% static 'images/visibility-hide.png' %}" width="20" height="15" class="hidden"
+								id="visibility-hide">
+							<img src="{% static 'images/visibility-show.png' %}" width="20" height="15"
+								id="visibility-show">
+						</span>
+					</div>
+					<p class="text-red-600 text-sm hidden cp_error" id="confirm-password-error"></p>
+					{% if form.confirm_password.errors %}
+					{% for error in form.confirm_password.errors %}
+					<p class="text-red-600 text-sm cp_error">{{ error|escape }}</p>
+					{% endfor %}
+					{% endif %}
+				</div>
+				<div class="flex items-center">
+					<div class="flex-1 flex items-center space-x-4">
+						<input type="checkbox" class="outline-none" required id="id_terms" name="terms">
+						<label for="id_terms">I accept
+							<span class="underline hover:text-sky-400 text-slate-700">terms and
+								conditions</span>
+						</label>
+					</div>
+				</div>
+				<input type="submit" id="submit-button" value="Create"
+					class="p-3 bg-green-700 hover:bg-green-800 text-white text-lg">
+				<div class="flex items-center justify-between">
+					<p class="text-slate-700">Already have an account ?
+						<a href="#" class="text-sky-700 hover:text-sky-400 underline">Sign In</a>
+					</p>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+
+{% block script %}
+<script>
+	function containsSpecialChars(str) {
+		const specialChars = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+		return specialChars.test(str);
+	}
+	function containsNumber(str) {
+		const numberChars = /[0-9]/;
+		return numberChars.test(str);
+	}
+	function containsUppercaseChar(str) {
+		const uppercaseChars = /[A-Z]/;
+		return uppercaseChars.test(str);
+	}
+	function removeExistingClass(class_list, where) {
+		class_list.forEach(function (klass) {
+			if (where.hasClass(klass)) { where.removeClass(klass) }
+		})
+	}
+	function checkAndSetPasswordsMatchError(p1, p2) {
+		if (p1 && p2 && p1 !== p2) {
+			$('.cp_error').each((k, p) => { $(p).empty() })
+			$('#confirm-password-error').removeClass('hidden').html('Password and Confirm Password does not match');
+		}
+		else {
+			$('#confirm-password-error').addClass('hidden').html('');
+		}
+	}
+
+	// Username Input Change Trigger
+	$('#id_username').change(function (event) {
+		username_input = $(event.target);
+		value = username_input.val();
+		token = '{{ csrf_token }}';
+		$.ajax({
+			url: '{% url "accounts:check_username" %}',
+			type: 'post',
+			data: { username: value, 'csrfmiddlewaretoken': token },
+			success: function (res) {
+				if (res.success === true) {
+					$('#username-error').addClass('hidden').html('')
+				}
+				else {
+					$('#username-error').removeClass('hidden').html('Username already exists try something new !')
+				}
+
+			},
+			error: function (err) {
+				console.log(err)
+			}
+		})
+	})
+	$('#id_username').keyup(() => { $('#username-error').html('').addClass('hidden') })
+
+	// Email Input Change Trigger
+	$('#id_email').change(function (event) {
+		console.log('works')
+		let email_input = $(event.target);
+		let value = email_input.val();
+		let csrf_value = '{{ csrf_token }}'
+		$.ajax({
+			url: '{% url "accounts:check_username" %}',
+			type: "post",
+			data: { username: value, 'csrfmiddlewaretoken': csrf_value },
+			success: function (res) {
+				console.log(res)
+				if (res.success === true) {
+					$('#email-error').addClass('hidden').html('')
+				}
+				else {
+					$('#email-error').removeClass('hidden').html('Email already exists')
+				}
+			},
+			error: function (err) {
+				console.log(err)
+			}
+		})
+	})
+	$('#id_email').keyup(() => { $('#email-error').html('').addClass('hidden') })
+
+	// Password Input Key Up Trigger
+	$('#id_password').keyup(function (event) {
+		let password_input = $(event.target);
+		let value = password_input.val();
+		let count = 0
+
+		if (containsUppercaseChar(value)) {
+			count++;
+			$('#p_1').addClass('line-through')
+		}
+		else { $('#p_1').removeClass('line-through') }
+
+		if (containsNumber(value)) {
+			count++;
+			$('#p_2').addClass('line-through');
+		}
+		else { $('#p_2').removeClass('line-through'); }
+
+		if (containsSpecialChars(value)) {
+			count++;
+			$('#p_3').addClass('line-through');
+		}
+		else { $('#p_3').removeClass('line-through'); }
+
+		if (value.length >= 6) {
+			count++;
+			$('#p_4').addClass('line-through');
+		}
+		else { $('#p_4').removeClass('line-through') }
+
+		removeExistingClass(
+			['w-[25%]', 'w-[50%]', 'w-[75%]', 'w-[100%]',
+				'bg-red-500', 'bg-yellow-500', 'bg-green-500'],
+			$('#bar-percent')
+		);
+
+		if (count == 1) {
+			$('#bar-percent').addClass('bg-red-500 w-[25%]');
+			$('#bar-text').html('Weak')
+		}
+		else if (count == 2) {
+			$('#bar-percent').addClass('bg-red-500 w-[50%]');
+			$('#bar-text').html('Average')
+		}
+		else if (count == 3) {
+			$('#bar-percent').addClass('bg-yellow-500 w-[75%]');
+			$('#bar-text').html('Normal')
+		}
+		else if (count == 4) {
+			$('#bar-percent').addClass('bg-green-500 w-[100%]')
+			$('#bar-text').html('Good')
+		}
+		checkAndSetPasswordsMatchError(value, $('#id_confirm_password').val());
+	});
+
+	// Confirm Password Input Key Up Trigger
+	$('#id_confirm_password').keyup(function (event) {
+		confirm_password_input = $(event.target);
+		let cp_value = confirm_password_input.val();
+		let p_value = $('#id_password').val();
+
+		checkAndSetPasswordsMatchError(p_value, cp_value);
+	})
+	$('#password-visible-toggle').click(function () {
+		$('#password-visible-toggle').find('img').each(function (k, image) {
+			$(image).toggleClass('hidden')
+		});
+		existing_type = $('#id_password').prop('type')
+		if (existing_type === 'password') { $('#id_password').prop('type', 'text'); }
+		else { $('#id_password').prop('type', 'password'); }
+	})
+	$('#confirm-password-visible-toggle').click(function () {
+		$('#confirm-password-visible-toggle').find('img').each(function (k, image) {
+			$(image).toggleClass('hidden')
+		});
+		existing_type = $('#id_confirm_password').prop('type')
+		if (existing_type == 'password') { $('#id_confirm_password').prop('type', 'text'); }
+		else { $('#id_confirm_password').prop('type', 'password'); }
+	})
+
+
+</script>
+{% endblock %}

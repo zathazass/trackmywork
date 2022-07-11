@@ -17,15 +17,15 @@ class RegisterForm(forms.ModelForm):
 		fields = ['username', 'email', 'password', 'confirm_password']
 
 	def clean(self):
-		cleaned_data = super().cleaned_data()
-
+		cleaned_data = super().clean()
+		print(cleaned_data, 'form')
 		if cleaned_data['confirm_password'] != cleaned_data['password']:
-			raise forms.ValidationError('Password and Confirm password does not match')
+			self.add_error(error='Password and Confirm password does not match', field='confirm_password')
 
 		for char in cleaned_data['username']:
 			if not char.isidentifier():
-				raise forms.ValidationError('Username only allow _ as special character or must starts with alphabet')
+				self.add_error(error='Username only allow _ as special character or must starts with alphabet', field='username')
 
 			if char.isupper():
-				raise forms.ValidationError('Username must be in lowercase')
+				self.add_error(error='Username must be in lowercase', field='username')
 
