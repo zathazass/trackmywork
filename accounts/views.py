@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import (
-    authenticate, login as django_login, logout as django_logout
+    authenticate, login as django_login, logout as django_logout,
+    get_user_model
 )
-from django.contrib.auth import get_user_model
-from django.contrib import messages
 
+from trackmywork.utilities.funcs import generate_otp
 from .forms import *
 from .selectors import get_user
+from .services import create_account_confirmation, create_user, update_account_confirmation
+
 
 User = get_user_model()
 
@@ -59,11 +62,18 @@ def register_page(request):
             'username': request.POST.get('username'),
             'password': request.POST.get('password'),
             'confirm_password': request.POST.get('confirm_password'),
-            'email': request.POST.get('email')
+            'email': request.POST.get('email'),
+            'accept_terms_and_conditions': request.POST.get('terms', False)
         }
         form = RegisterForm(data=requested_data)
         if form.is_valid():
+            form.cleaned_data.pop('confirm_password')
+            form.cleaned_data['is_active'] = False
             print('form valid', form.cleaned_data, 'view')
+            user = create_user(**form.cleaned_data)
+            acc_conf = create_account_confirmation(user=user, otp=generate_otp())
+            print(acc_conf.otp)
+            return redirect('accounts:account_confirmation_page')
         else:
             print('invalid form', form.errors, 'view')
 
@@ -84,3 +94,29 @@ def check_username(request):
         return JsonResponse(data={'success': status}, status=200)
     elif request.method == 'GET':
         return JsonResponse(data={'message': 'only allow post method'})
+
+
+def account_confirmation_page(request):
+    form = AccountConfirmationForm()
+    if request.method == 'POST':
+        form = AccountConfirmationForm(request.POST)
+        if form.is_valid():
+            print(form, 'valid')
+            email = form.cleaned_data['email']
+            otp = form.cleaned_data['otp']
+            acc_conf = update_account_confirmation(email=email, otp=otp)
+            if acc_conf == 'confirm':
+                return redirect('accounts:login_page')
+            if acc_conf == 'not_found':
+                form.add_error(error='email is does not match with user', field='email')
+            if acc_conf == 'expired':
+                form.add_error(error='OTP is expired, kindly click resend otp', field='__all__')
+            if acc_conf == 'invalid':
+                form.add_error(error='invalid otp try again', field='otp')
+            if acc_conf == 'error':
+                form.add_error(error='technical issue contact admin', field='__all__')
+        else:
+            print(form.errors, 'invalid')
+
+    context = {'form': form}
+    return render(request, 'accounts/confirm.html', context)

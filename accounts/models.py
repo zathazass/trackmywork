@@ -7,7 +7,7 @@ from trackmywork.utilities.model_fields import ConfidentialField
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, username=None, password=None, email=None, is_active=True):
+    def create_user(self, username=None, password=None, email=None, is_active=True, terms=True):
         # Checking user entered valid data
         if not username:
             raise ValueError('User must have username')
@@ -18,7 +18,8 @@ class UserManager(BaseUserManager):
 
         # Instantiate and save user data
         user = self.model(
-            username=username, email=self.normalize_email(email), is_active=is_active
+            username=username, email=self.normalize_email(email), is_active=is_active,
+            accept_terms_and_conditions = terms
         )
         user.set_password(password)
         user.save(using=self._db)

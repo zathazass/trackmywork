@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<title>Confirmation | Track My Work</title>
+{% endblock %}
+{% block body %}
+
+<section>
+	<div class="container my-6">
+		<div class="flex flex-col space-y-2 mx-auto">
+			{% if messages %}
+			{% for message in messages %}
+			<p class="bg-sky-100 p-3">{{ message }}</p>
+			{% endfor %}
+			{% endif %}
+		</div>
+		<div class="border border-gray-100 p-8 my-12 max-w-2xl mx-auto">
+			<form method="post" class="flex flex-col space-y-5" id="confirmation-form">
+				{% csrf_token %}
+				<h3 class="text-sky-700 text-center text-2xl pb-8">One more step to confirm your account</h3>
+				{% if form.non_field_errors %}
+				{% for error in form.non_field_errors %}
+				<p class="text-red-600 text-sm">{{ error|escape }}</p>
+				{% endfor %}
+				{% endif %}
+				<div class="flex flex-col space-y-3 w-full">
+					<label for="id_username" class="text-slate-700">Enter 6-digit OTP</label>
+					<input type="text" name="otp" id="id_otp" placeholder="OTP"
+						class="border-slate-300 focus:border-sky-700" {% if form.otp.value %} value="{{form.otp.value}}"
+						{% endif %} maxlength="{{form.otp.field.max_length}}" />
+					{% if form.otp.errors %}
+					{% for error in form.otp.errors %}
+					<p class="text-red-600 text-sm">{{ error|escape }}</p>
+					{% endfor %}
+					{% endif %}
+				</div>
+				<div class="flex flex-col space-y-3 w-full">
+					<label for="id_email" class="text-slate-700">Email</label>
+					<p class="text-slate-500 text-xs">please provide currently registered email address</p>
+					<input type="email" name="email" id="id_email" placeholder="Email Address" required
+						class="border-slate-300 focus:border-sky-700" {% if form.email.value %}
+						value="{{form.email.value}}" {% endif %} />
+					<p class="text-red-600 text-sm hidden e_error" id="email-error"></p>
+					{% if form.email.errors %}
+					{% for error in form.email.errors %}
+					<p class="text-red-600 text-sm e_error">{{ error|escape }}</p>
+					{% endfor %}
+					{% endif %}
+				</div>
+
+				<div class="flex items-center">
+					<div class="flex-1 text-right">
+						<a href="#" class="text-sky-700 hover:text-sky-400 underline">Resend OTP</a>
+					</div>
+				</div>
+				<input type="submit" value="Confirm" class="p-3 bg-sky-700 hover:bg-sky-800 text-white text-lg">
+			</form>
+		</div>
+	</div>
+</section>
+
+
+{% endblock %}

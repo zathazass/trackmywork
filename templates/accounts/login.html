@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block head %}
+<title>Login | Track My Work</title>
+{% endblock %}
 {% block body %}
 
 
@@ -60,7 +63,8 @@
 							class="text-sky-700 hover:text-sky-400 underline">
 							Sign
 							Up</a></p>
-					<a href="#" class="underline text-sky-700 hover:text-sky-400 text-right">Confirm my account</a>
+					<a href="{% url 'accounts:account_confirmation_page' %}"
+						class="underline text-sky-700 hover:text-sky-400 text-right">Confirm my account</a>
 				</div>
 			</form>
 		</div>
@@ -68,37 +72,4 @@
 </section>
 
 
-{% endblock %}
-
-{% block script %}
-<!-- <script>
-	$(document).ready(
-		$('#login-form').submit(function (e) {
-			e.preventDefault();
-			const formData = new FormData(e.target);
-			let jsonData = {};
-			formData.forEach((value, key) => jsonData[key] = value);
-			console.log(jsonData)
-			$.ajax({
-				url: "{% url 'accounts:login' %}",
-				type: 'post',
-				data: JSON.stringify(jsonData),
-				processData: false,
-				contentType: 'application/json',
-				success: handleSuccessData,
-				error: handleErrorData
-			})
-			function handleSuccessData(res) {
-				console.log(res);
-				window.location.replace("{% url 'accounts:home_page' %}")
-			}
-
-			function handleErrorData(err) {
-				console.log(err)
-			}
-		})
-
-
-	);
-</script> -->
 {% endblock %}
