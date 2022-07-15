@@ -246,8 +246,10 @@
 				'bg-red-500', 'bg-yellow-500', 'bg-green-500'],
 			$('#bar-percent')
 		);
-
-		if (count == 1) {
+		if (count == 0) {
+			$('#bar-text').html('')
+		}
+		else if (count == 1) {
 			$('#bar-percent').addClass('bg-red-500 w-[25%]');
 			$('#bar-text').html('Weak')
 		}

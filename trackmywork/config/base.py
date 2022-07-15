@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'accounts.middleware.SessionIdleTimeoutMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware'
@@ -183,3 +184,10 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+# Logout after a period of inactivity
+INACTIVE_TIME = 15*60  # 15 minutes
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+SESSION_COOKIE_AGE = INACTIVE_TIME   # change expired session
+SESSION_IDLE_TIMEOUT = INACTIVE_TIME  # logout
+KEEP_ME_SESSION_TIME = 14*24*60*60 # 2 weeks

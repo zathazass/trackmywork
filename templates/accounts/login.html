@@ -11,7 +11,7 @@
 		<div class="flex flex-col space-y-2 mx-auto">
 			{% if messages %}
 			{% for message in messages %}
-			<p class="bg-sky-100 p-3">{{ message }}</p>
+			<p class="bg-green-100 p-4 text-green-800">{{ message }}</p>
 			{% endfor %}
 			{% endif %}
 		</div>
@@ -26,7 +26,7 @@
 				{% endif %}
 				<div class="flex flex-col space-y-3 w-full">
 					<label for="id_username" class="text-slate-700">Enter Your Username</label>
-					<input type="text" name="username" id="id_username" placeholder="Username or Email"
+					<input type="text" name="username" id="id_username" placeholder="Username or Email" required
 						class="border-slate-300 focus:border-sky-700" {% if form.username.value %}
 						value="{{form.username.value}}" {% endif %} />
 					{% if form.username.errors %}
@@ -37,7 +37,7 @@
 				</div>
 				<div class="flex flex-col space-y-3 w-full">
 					<label for="id_password" class="text-slate-700">Enter Your Password</label>
-					<input type="password" name="password" id="id_password" placeholder="Password"
+					<input type="password" name="password" id="id_password" placeholder="Password" required
 						class="border-slate-300 focus:border-sky-700" {% if form.password.value %}
 						value="{{form.password.value}}" {% endif %} />
 					{% if form.password.errors %}
@@ -57,9 +57,12 @@
 							?</a>
 					</div>
 				</div>
+				<p class="text-xs text-slate-500">if "keep me signed in" is not checked then automatically logout after
+					15 minutes of
+					inactivity</p>
 				<input type="submit" value="Sign In" class="p-3 bg-sky-700 hover:bg-sky-800 text-white text-lg">
 				<div class="flex items-center justify-between">
-					<p class="text-slate-700">I don't have an account ? <a href="#"
+					<p class="text-slate-700">I don't have an account ? <a href="{% url 'accounts:register_page' %}"
 							class="text-sky-700 hover:text-sky-400 underline">
 							Sign
 							Up</a></p>

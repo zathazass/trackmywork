@@ -12,7 +12,7 @@ from trackmywork.utilities.funcs import generate_otp
 from .forms import *
 from .selectors import get_user
 from .services import create_account_confirmation, create_user, update_account_confirmation
-
+from trackmywork.config.base import KEEP_ME_SESSION_TIME
 
 User = get_user_model()
 
@@ -20,6 +20,8 @@ def login_page(request):
     form = LoginForm()
     if request.method == 'POST':
         form = LoginForm(request.POST)
+        keep_me = True if request.POST.get('keep_me', None) == 'on' else False
+        print(keep_me)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -35,6 +37,7 @@ def login_page(request):
                 if not form.errors:
                     valid_user = authenticate(username=user.username, password=password)
                     if valid_user:
+                        if keep_me: request.session.set_expiry(KEEP_ME_SESSION_TIME)
                         django_login(request, valid_user)
                         return redirect('accounts:home_page')
                     else:
