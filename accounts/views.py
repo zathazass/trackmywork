@@ -123,3 +123,7 @@ def account_confirmation_page(request):
 
     context = {'form': form}
     return render(request, 'accounts/confirm.html', context)
+
+
+def forgot_password_page(request):
+    return render(request, 'accounts/forgot-password.html')

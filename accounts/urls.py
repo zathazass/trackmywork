@@ -19,6 +19,7 @@ urlpatterns = [
     path('home/', views.home_page, name='home_page'),
     path('register/', views.register_page, name='register_page'),
     path('confirm/', views.account_confirmation_page, name='account_confirmation_page'),
+    path('password-reset/', views.forgot_password_page, name='forgot_password_page'),
 
     path('check-username/', views.check_username, name='check_username'),
 ]
