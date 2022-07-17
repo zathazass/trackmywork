@@ -3,6 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import EmailMessage
 from django.contrib.auth import (
     authenticate, login as django_login, logout as django_logout,
     get_user_model
@@ -11,8 +13,8 @@ from django.contrib.auth import (
 from trackmywork.utilities.funcs import generate_otp
 from .forms import *
 from .selectors import get_user
-from .services import create_account_confirmation, create_user, update_account_confirmation
-from trackmywork.config.base import KEEP_ME_SESSION_TIME
+from .services import create_account_confirmation, create_user, check_and_update_account_confirmation
+from trackmywork.config.base import KEEP_ME_SESSION_TIME, EMAIL_HOST_USER
 
 User = get_user_model()
 
@@ -107,7 +109,7 @@ def account_confirmation_page(request):
             print(form, 'valid')
             email = form.cleaned_data['email']
             otp = form.cleaned_data['otp']
-            acc_conf = update_account_confirmation(email=email, otp=otp)
+            acc_conf = check_and_update_account_confirmation(email=email, otp=otp)
             if acc_conf == 'confirm':
                 return redirect('accounts:login_page')
             if acc_conf == 'not_found':
@@ -127,3 +129,21 @@ def account_confirmation_page(request):
 
 def forgot_password_page(request):
     return render(request, 'accounts/forgot-password.html')
+
+@csrf_exempt
+def send_otp(request):
+    if request.method == 'GET':
+        return JsonResponse('only allow POST method')
+    if request.method == 'POST':
+        print(request.POST)
+        user = get_user(request.POST.get('username', ''))
+        if isinstance(user, ObjectDoesNotExist):
+            return JsonResponse(data={'message': 'Username or Email does not exist'})
+        try:
+            email = EmailMessage(subject='Password Reset OTP : Track My Work',
+            body=f'''
+            Hi {request.user.username}, your password reset otp is {generate_otp()}, expired in 60 minutes
+            ''', from_email=EMAIL_HOST_USER, to=['sathananthanit@gmail.com'])
+            email.send()
+        except Exception as e: print(e)
+        return JsonResponse(data={'success': True})

@@ -45,7 +45,7 @@ def create_account_confirmation(*, user, otp):
     return acc_conf
 
 
-def update_account_confirmation(*, email, otp):
+def check_and_update_account_confirmation(*, email, otp):
     try:
         user = User.objects.get(email=email)
     except User.DoesNotExist:

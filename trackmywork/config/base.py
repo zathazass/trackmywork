@@ -191,3 +191,10 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 SESSION_COOKIE_AGE = INACTIVE_TIME   # change expired session
 SESSION_IDLE_TIMEOUT = INACTIVE_TIME  # logout
 KEEP_ME_SESSION_TIME = 14*24*60*60 # 2 weeks
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EAMIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'satha.bluekode@gmail.com'
+EMAIL_HOST_PASSWORD = 'txqirkhbnevedurj'
