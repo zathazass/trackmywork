@@ -31,3 +31,9 @@ def make_a_new_crypto_key():
     Generates and returns a new crypto key
     '''
     return str(Fernet.generate_key(), 'utf-8')
+
+
+def generate_unique_key(sep='-'):    
+    key = 'tmw'+ sep + ''.join(random.choices('0123456789abcdef', k=11))
+    key = key + sep + random.choice('z2') + random.choice('a4') + random.choice('s5') + random.choice('s5')
+    return key

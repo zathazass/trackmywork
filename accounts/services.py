@@ -4,8 +4,8 @@ from django.core.exceptions import MultipleObjectsReturned
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from accounts.models import AccountConfirmation
-
+from accounts.models import AccountConfirmation, UserSecret
+from trackmywork.utilities.funcs import generate_unique_key
 
 logger = logging.getLogger('common')
 
@@ -71,3 +71,36 @@ def check_and_update_account_confirmation(*, email, otp):
             return 'expired'
     else:
         return 'invalid'
+
+
+def check_unique_key(key, sep='-'):
+    main_hash = key.split(sep)[1]
+    #get data from db
+    existing_keys = [a[0].split(sep)[1] for a in UserSecret.objects.all().values_list('unique_key')]
+    if main_hash in existing_keys:
+        return False
+    else:
+        return True
+
+
+def make_unique_key():
+    can_loop = True
+    while can_loop:
+        key = generate_unique_key()
+        if check_unique_key(key): can_loop = False
+    return key
+
+
+def create_user_secret(user):
+    us = UserSecret(user=user, unique_key=make_unique_key())
+    us.full_clean()
+    us.save()
+    return us
+
+
+def update_user_secret(user):
+    us = UserSecret.objects.get(user=user)
+    us.unique_key = make_unique_key()
+    us.full_clean()
+    us.save()
+    return us

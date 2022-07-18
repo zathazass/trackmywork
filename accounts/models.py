@@ -139,3 +139,11 @@ class AccountStatus(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.inactive_reason}'
+
+
+class UserSecret(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    unique_key = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return self.user.username

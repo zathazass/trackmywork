@@ -13,17 +13,19 @@ from django.contrib.auth import (
 from trackmywork.utilities.funcs import generate_otp
 from .forms import *
 from .selectors import get_user
-from .services import create_account_confirmation, create_user, check_and_update_account_confirmation
+from .services import create_account_confirmation, create_user, check_and_update_account_confirmation, create_user_secret
+
 from trackmywork.config.base import KEEP_ME_SESSION_TIME, EMAIL_HOST_USER
 
 User = get_user_model()
 
 def login_page(request):
+    z = False
     form = LoginForm()
     if request.method == 'POST':
         form = LoginForm(request.POST)
         keep_me = True if request.POST.get('keep_me', None) == 'on' else False
-        print(keep_me)
+        if z: print(keep_me)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -61,6 +63,7 @@ def logout_view(request):
 
 
 def register_page(request):
+    z = False
     form = RegisterForm()
     if request.method == 'POST':
         requested_data = {
@@ -74,27 +77,30 @@ def register_page(request):
         if form.is_valid():
             form.cleaned_data.pop('confirm_password')
             form.cleaned_data['is_active'] = False
-            print('form valid', form.cleaned_data, 'view')
+            if z: print('form valid', form.cleaned_data, 'view')
             user = create_user(**form.cleaned_data)
             acc_conf = create_account_confirmation(user=user, otp=generate_otp())
-            print(acc_conf.otp)
+            if z: print(acc_conf.otp)
+            us = create_user_secret(user)
+            if z: print(us.unique_key)
             return redirect('accounts:account_confirmation_page')
         else:
-            print('invalid form', form.errors, 'view')
+            if z: print('invalid form', form.errors, 'view')
 
     context = {'form': form}
     return render(request, 'accounts/register.html', context=context)
 
 
 def check_username(request):
+    z = False
     if request.method == 'POST' and request.is_ajax():
         user = get_user(request.POST['username'])
         if isinstance(user, ObjectDoesNotExist):
             status = True
-            print('hi')
+            if z: print('hi')
         elif isinstance(user, User):
             status = False
-            print('hello')
+            if z: print('hello')
         
         return JsonResponse(data={'success': status}, status=200)
     elif request.method == 'GET':
@@ -102,11 +108,12 @@ def check_username(request):
 
 
 def account_confirmation_page(request):
+    z = False
     form = AccountConfirmationForm()
     if request.method == 'POST':
         form = AccountConfirmationForm(request.POST)
         if form.is_valid():
-            print(form, 'valid')
+            if z: print(form, 'valid')
             email = form.cleaned_data['email']
             otp = form.cleaned_data['otp']
             acc_conf = check_and_update_account_confirmation(email=email, otp=otp)
@@ -121,7 +128,7 @@ def account_confirmation_page(request):
             if acc_conf == 'error':
                 form.add_error(error='technical issue contact admin', field='__all__')
         else:
-            print(form.errors, 'invalid')
+            if z: print(form.errors, 'invalid')
 
     context = {'form': form}
     return render(request, 'accounts/confirm.html', context)
@@ -132,10 +139,11 @@ def forgot_password_page(request):
 
 @csrf_exempt
 def send_otp(request):
+    z = False
     if request.method == 'GET':
         return JsonResponse('only allow POST method')
     if request.method == 'POST':
-        print(request.POST)
+        if z: print(request.POST)
         user = get_user(request.POST.get('username', ''))
         if isinstance(user, ObjectDoesNotExist):
             return JsonResponse(data={'message': 'Username or Email does not exist'})
@@ -145,5 +153,6 @@ def send_otp(request):
             Hi {request.user.username}, your password reset otp is {generate_otp()}, expired in 60 minutes
             ''', from_email=EMAIL_HOST_USER, to=['sathananthanit@gmail.com'])
             email.send()
-        except Exception as e: print(e)
+        except Exception as e:
+            if z: print(e)
         return JsonResponse(data={'success': True})
