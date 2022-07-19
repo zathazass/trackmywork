@@ -26,10 +26,10 @@ class RegisterForm(forms.ModelForm):
 		if cleaned_data['confirm_password'] != cleaned_data['password']:
 			self.add_error(error='Password and Confirm password does not match', field='confirm_password')
 
-		for char in cleaned_data['username']:
-			if not char.isidentifier():
-				self.add_error(error='Username only allow _ as special character or must starts with alphabet', field='username')
+		if not cleaned_data['username'].isidentifier():
+			self.add_error(error='Username only allow _ as special character or must starts with alphabet', field='username')
 
+		for char in cleaned_data['username']:
 			if char.isupper():
 				self.add_error(error='Username must be in lowercase', field='username')
 

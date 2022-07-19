@@ -76,14 +76,16 @@ def register_page(request):
         form = RegisterForm(data=requested_data)
         if form.is_valid():
             form.cleaned_data.pop('confirm_password')
-            form.cleaned_data['is_active'] = False
+            form.cleaned_data['is_active'] = True
             if z: print('form valid', form.cleaned_data, 'view')
             user = create_user(**form.cleaned_data)
             acc_conf = create_account_confirmation(user=user, otp=generate_otp())
             if z: print(acc_conf.otp)
             us = create_user_secret(user)
             if z: print(us.unique_key)
-            return redirect('accounts:account_confirmation_page')
+            # return redirect('accounts:account_confirmation_page')
+            messages.info(request, 'Account has been created successfully')
+            return redirect('accounts:login_page')
         else:
             if z: print('invalid form', form.errors, 'view')
 
@@ -156,3 +158,47 @@ def send_otp(request):
         except Exception as e:
             if z: print(e)
         return JsonResponse(data={'success': True})
+
+
+@csrf_exempt
+def get_unique_key(request):
+    if request.method == 'GET':
+        return JsonResponse('only allow POST method')
+    if request.method == 'POST':
+        status = False
+        key = request.POST.get('key', '')
+        email = request.POST.get('email', '')
+        print(key, email, 'key email')
+        if key and email:
+            try:
+                u = UserSecret.objects.get(user__email=email, unique_key=key)
+                if u: status = True
+            except UserSecret.DoesNotExist:
+                status = False
+        return JsonResponse(data={'success': status})
+
+
+@csrf_exempt
+def reset_password(request):
+    if request.method == 'GET':
+        return JsonResponse('only allow POST method')
+    if request.method == 'POST':
+        email = request.POST.get('email', '')
+        key = request.POST.get('key', '')
+        p1 = request.POST.get('password', '')
+        p2 = request.POST.get('confirm_password', '')
+
+        if p1 != p2:
+            return JsonResponse(data={'status': 'error', 'message': 'Password and Confirm password does not match'})
+
+        try:
+            UserSecret.objects.get(user__email=email, unique_key=key)
+        except UserSecret.DoesNotExist:
+            return JsonResponse(data={'status': 'error', 'message': 'Invalid Unique Key'})
+
+        user = User.objects.get(email=email)
+        user.set_password(p1)
+        user.save()
+        messages.info(request, 'password reset completed successfully')
+        return JsonResponse(data={'status': 'success'})
+

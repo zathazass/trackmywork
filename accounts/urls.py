@@ -23,4 +23,6 @@ urlpatterns = [
 
     path('check-username/', views.check_username, name='check_username'),
     path('send-otp/', views.send_otp, name='send_otp'),
+    path('unique-key/', views.get_unique_key, name='get_unique_key'),
+    path('reset-password/', views.reset_password, name='reset_password')
 ]
