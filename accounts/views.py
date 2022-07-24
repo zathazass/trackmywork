@@ -65,6 +65,7 @@ def logout_view(request):
 def register_page(request):
     z = False
     form = RegisterForm()
+    context = {'created': False, 'form': form}
     if request.method == 'POST':
         requested_data = {
             'username': request.POST.get('username'),
@@ -83,13 +84,13 @@ def register_page(request):
             if z: print(acc_conf.otp)
             us = create_user_secret(user)
             if z: print(us.unique_key)
-            # return redirect('accounts:account_confirmation_page')
-            messages.info(request, 'Account has been created successfully')
-            return redirect('accounts:login_page')
-        else:
-            if z: print('invalid form', form.errors, 'view')
 
-    context = {'form': form}
+            form = RegisterForm()
+            context.update({'form': form, 'created': True, 'key': us.unique_key})
+        else:
+            context.update({'created': False, 'form': form})
+            if z: print('invalid form', form.errors, 'view')
+    
     return render(request, 'accounts/register.html', context=context)
 
 
@@ -202,3 +203,6 @@ def reset_password(request):
         messages.info(request, 'password reset completed successfully')
         return JsonResponse(data={'status': 'success'})
 
+
+def terms_page(request):
+    return render(request, 'policies/terms-and-conditions.html')

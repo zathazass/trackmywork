@@ -187,6 +187,7 @@ REST_FRAMEWORK = {
 
 # Logout after a period of inactivity
 INACTIVE_TIME = 15*60  # 15 minutes
+SESSION_SAVE_EVERY_REQUEST = True
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 SESSION_COOKIE_AGE = INACTIVE_TIME   # change expired session
 SESSION_IDLE_TIMEOUT = INACTIVE_TIME  # logout

@@ -5,15 +5,58 @@
 {% endblock %}
 
 {% block body %}
+
+{% if created %}
+<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="key-modal">
+
+	<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+	<div class="fixed z-10 inset-0 overflow-y-auto">
+		<div class="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+
+			<div
+				class="relative bg-white text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
+				<div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+					<div class="sm:flex sm:items-start">
+
+						<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+							<h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Account Created
+								Successfully
+							</h3>
+							<div class="mt-2">
+								<p class="text-md text-gray-700 my-3">
+									Your unique secret key for track my work is</p>
+								<span class="bg-green-100 p-3 rounded-sm block my-2">{{key}}</span>
+								</p>
+								<p class="text-red-600 text-sm my-2">Make sure that you copied before reload or perform
+									any
+									other
+									actions.</p>
+								<p class="text-sm text-slate-600">
+									Do not share with anyone and store in secret place. It is useful and mandatory for
+									all authorized actions made by you. This key ensures that you are the actual person
+									to do the authorized requests.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+					<button type="button" id="got-it-btn"
+						class="w-full inline-flex justify-center border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Got
+						it</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+
+
 <section>
 	<div class="container my-6">
-		<div class="flex flex-col space-y-2 mx-auto">
-			{% if messages %}
-			{% for message in messages %}
-			<p class="bg-sky-100 p-3 error">{{ message }}</p>
-			{% endfor %}
-			{% endif %}
-		</div>
 		<div class="border border-gray-100 p-8 my-12 max-w-2xl mx-auto">
 			<form method="post" class="flex flex-col space-y-5" id="register-form">
 				{% csrf_token %}
@@ -112,8 +155,9 @@
 					<div class="flex-1 flex items-center space-x-4">
 						<input type="checkbox" class="outline-none" required id="id_terms" name="terms">
 						<label for="id_terms">I accept
-							<span class="underline hover:text-sky-400 text-slate-700">terms and
-								conditions</span>
+							<a href="{% url 'accounts:terms_page' %}" target="_blank"
+								class="underline hover:text-sky-400 text-slate-700">terms and
+								conditions</a>
 						</label>
 					</div>
 				</div>
@@ -121,7 +165,8 @@
 					class="p-3 bg-green-700 hover:bg-green-800 text-white text-lg">
 				<div class="flex items-center justify-between">
 					<p class="text-slate-700">Already have an account ?
-						<a href="#" class="text-sky-700 hover:text-sky-400 underline">Sign In</a>
+						<a href="{% url 'accounts:login_page' %}" class="text-sky-700 hover:text-sky-400 underline">Sign
+							In</a>
 					</p>
 				</div>
 			</form>
@@ -293,6 +338,12 @@
 		else { $('#id_confirm_password').prop('type', 'password'); }
 	})
 
+	{% if created %}
+	$('#got-it-btn').click(function () {
+		$('#key-modal').remove();
 
+		window.location.replace("{% url 'accounts:login_page' %}");
+	})
+	{% endif %}
 </script>
 {% endblock %}
