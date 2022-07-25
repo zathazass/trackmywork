@@ -14,7 +14,7 @@ Login Page
 
 Register Page
 
-- [ ] Secret Key show up page (one time after sign up)
+- [x] Secret Key show up page (one time after sign up)
 - [x] Terms and conditions Pages
 - [x] Sign In Page Link
 - [x] Sign Up form submission

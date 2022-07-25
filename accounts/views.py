@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import JsonResponse
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import EmailMessage
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth import (
     authenticate, login as django_login, logout as django_logout,
     get_user_model
@@ -21,6 +20,7 @@ User = get_user_model()
 
 def login_page(request):
     z = False
+    if request.user.is_authenticated: django_logout(request)
     form = LoginForm()
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -35,7 +35,7 @@ def login_page(request):
             elif user:
                 if not user.active:
                     form.add_error(error='Account Confirmation is required',field='__all__')
-                if user.status == False:
+                if hasattr(user, 'accountstatus'):
                     form.add_error(error=user.accountstatus.description, field='__all__')
             
                 if not form.errors:
@@ -63,7 +63,8 @@ def logout_view(request):
 
 
 def register_page(request):
-    z = False
+    z = True
+    if request.user.is_authenticated: django_logout(request)
     form = RegisterForm()
     context = {'created': False, 'form': form}
     if request.method == 'POST':
@@ -84,7 +85,7 @@ def register_page(request):
             if z: print(acc_conf.otp)
             us = create_user_secret(user)
             if z: print(us.unique_key)
-
+            # have to send confirmation otp to email
             form = RegisterForm()
             context.update({'form': form, 'created': True, 'key': us.unique_key})
         else:
@@ -140,8 +141,9 @@ def account_confirmation_page(request):
 def forgot_password_page(request):
     return render(request, 'accounts/forgot-password.html')
 
-@csrf_exempt
+
 def send_otp(request):
+    '''Password Reset Email OTP'''
     z = False
     if request.method == 'GET':
         return JsonResponse('only allow POST method')
@@ -149,27 +151,47 @@ def send_otp(request):
         if z: print(request.POST)
         user = get_user(request.POST.get('username', ''))
         if isinstance(user, ObjectDoesNotExist):
-            return JsonResponse(data={'message': 'Username or Email does not exist'})
+            return JsonResponse(data={'success':False,'message': 'Username or Email does not exist'})
+        
+        ac_obj = AccountConfirmation.objects.get(user=user)
+        ac_obj.otp = generate_otp()
+        ac_obj.save()
+        otp = ac_obj.otp
+        print('OTP is sending ...', otp)
         try:
             email = EmailMessage(subject='Password Reset OTP : Track My Work',
             body=f'''
-            Hi {request.user.username}, your password reset otp is {generate_otp()}, expired in 60 minutes
+            Hi {request.user.username}, your password reset otp is {otp}, expired in 60 minutes
             ''', from_email=EMAIL_HOST_USER, to=['sathananthanit@gmail.com'])
             email.send()
+            return JsonResponse(data={'success': False, 'message': 'Found Error in sending email, please choose "try another way"'})
         except Exception as e:
             if z: print(e)
-        return JsonResponse(data={'success': True})
+        return JsonResponse(data={'success': True, 'message': 'password reset confirmation otp sent successfully to your email.'})
 
 
-@csrf_exempt
+def confirm_otp(request):
+    '''Password Reset Confirmation OTP'''
+    if request.method == 'GET': return JsonResponse(data='only allow POST method', safe=False)
+    if request.method == 'POST':
+        otp = request.POST['otp']
+        email = request.POST['email']
+        try:
+            ac_obj = AccountConfirmation.objects.get(user__email=email, otp=otp)
+            return JsonResponse(data={'success': True, 'message': 'OTP Verified'})
+        except AccountConfirmation.DoesNotExist:
+            return JsonResponse(data={'success': False, 'message': 'Invalid OTP'})
+
+
 def get_unique_key(request):
+    z = False
     if request.method == 'GET':
         return JsonResponse('only allow POST method')
     if request.method == 'POST':
         status = False
         key = request.POST.get('key', '')
         email = request.POST.get('email', '')
-        print(key, email, 'key email')
+        if z: print(key, email, 'key email')
         if key and email:
             try:
                 u = UserSecret.objects.get(user__email=email, unique_key=key)
@@ -179,23 +201,28 @@ def get_unique_key(request):
         return JsonResponse(data={'success': status})
 
 
-@csrf_exempt
 def reset_password(request):
     if request.method == 'GET':
         return JsonResponse('only allow POST method')
     if request.method == 'POST':
         email = request.POST.get('email', '')
-        key = request.POST.get('key', '')
+        key_or_otp = request.POST.get('key_or_otp', '')
         p1 = request.POST.get('password', '')
         p2 = request.POST.get('confirm_password', '')
 
         if p1 != p2:
-            return JsonResponse(data={'status': 'error', 'message': 'Password and Confirm password does not match'})
-
-        try:
-            UserSecret.objects.get(user__email=email, unique_key=key)
-        except UserSecret.DoesNotExist:
-            return JsonResponse(data={'status': 'error', 'message': 'Invalid Unique Key'})
+            return JsonResponse(data={
+                'status': 'error', 'message': 'Password and Confirm password does not match'})
+        if len(key_or_otp) == 6:
+            try:
+                AccountConfirmation.objects.get(user__email=email, otp=key_or_otp)
+            except AccountConfirmation.DoesNotExist:
+                return JsonResponse(data={'status': 'error', 'message': 'Invalid OTP'})
+        else:
+            try:
+                UserSecret.objects.get(user__email=email, unique_key=key_or_otp)
+            except UserSecret.DoesNotExist:
+                return JsonResponse(data={'status': 'error', 'message': 'Invalid Unique Key'})
 
         user = User.objects.get(email=email)
         user.set_password(p1)
