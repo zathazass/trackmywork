@@ -25,7 +25,7 @@
 				{% endif %}
 				<div class="flex flex-col space-y-3 w-full">
 					<label for="id_username" class="text-slate-700">Enter 6-digit OTP</label>
-					<input type="text" name="otp" id="id_otp" placeholder="OTP"
+					<input type="text" name="otp" id="id_otp" placeholder="OTP" required
 						class="border-slate-300 focus:border-sky-700" {% if form.otp.value %} value="{{form.otp.value}}"
 						{% endif %} maxlength="{{form.otp.field.max_length}}" />
 					{% if form.otp.errors %}

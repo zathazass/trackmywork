@@ -199,4 +199,4 @@ EMAIL_USE_TLS = True
 EAMIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'satha.bluekode@gmail.com'
-EMAIL_HOST_PASSWORD = 'fgsrqhhyzgovirpc'
+EMAIL_HOST_PASSWORD = 'kpretqcyszwwqvwh'

@@ -81,11 +81,22 @@ def register_page(request):
             form.cleaned_data['is_active'] = True
             if z: print('form valid', form.cleaned_data, 'view')
             user = create_user(**form.cleaned_data)
-            acc_conf = create_account_confirmation(user=user, otp=generate_otp())
+            otp = generate_otp()
+            acc_conf = create_account_confirmation(user=user, otp=otp)
             if z: print(acc_conf.otp)
             us = create_user_secret(user)
             if z: print(us.unique_key)
-            # have to send confirmation otp to email
+            
+            try:
+                email = EmailMessage(subject='Account Confirmation OTP : Track My Work',
+                body=f'''
+                Hi {request.user.username}, your account confirmation otp is {otp}, expired in 60 minutes
+                ''', from_email=EMAIL_HOST_USER, to=[user.email])
+                email.send()
+            except Exception as e:
+                user.is_active = True
+                user.save()
+                if z: print(e) # [Errno 111] Connection refused
             form = RegisterForm()
             context.update({'form': form, 'created': True, 'key': us.unique_key})
         else:
@@ -122,6 +133,7 @@ def account_confirmation_page(request):
             otp = form.cleaned_data['otp']
             acc_conf = check_and_update_account_confirmation(email=email, otp=otp)
             if acc_conf == 'confirm':
+                messages.info(request, 'Your account has been confirmed')
                 return redirect('accounts:login_page')
             if acc_conf == 'not_found':
                 form.add_error(error='email is does not match with user', field='email')
@@ -162,7 +174,7 @@ def send_otp(request):
             email = EmailMessage(subject='Password Reset OTP : Track My Work',
             body=f'''
             Hi {request.user.username}, your password reset otp is {otp}, expired in 60 minutes
-            ''', from_email=EMAIL_HOST_USER, to=['sathananthanit@gmail.com'])
+            ''', from_email=EMAIL_HOST_USER, to=[user.email])
             email.send()
             return JsonResponse(data={'success': False, 'message': 'Found Error in sending email, please choose "try another way"'})
         except Exception as e:
