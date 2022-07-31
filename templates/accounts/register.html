@@ -181,6 +181,8 @@
 
 {% block script %}
 <script>
+	$('#id_username').focus()
+
 	function containsSpecialChars(str) {
 		const specialChars = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 		return specialChars.test(str);
