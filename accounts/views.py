@@ -175,7 +175,7 @@ def send_otp(request):
             body=f'''
             Hi {request.user.username}, your password reset otp is {otp}, expired in 60 minutes
             ''', from_email=EMAIL_HOST_USER, to=[user.email])
-            email.send()
+            email.send(fail_silently=False)
             return JsonResponse(data={'success': False, 'message': 'Found Error in sending email, please choose "try another way"'})
         except Exception as e:
             if z: print(e)
